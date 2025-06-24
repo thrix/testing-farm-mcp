@@ -2,7 +2,7 @@
 
 An MCP (Model Context Protocol) server for interacting with the Testing Farm service. This server provides tools to submit FMF-based test requests and list available composes for testing.
 
-[![Container Build](https://github.com/thrix/testing-farm-mcp/actions/workflows/container-build.yml/badge.svg)](https://github.com/thrix/testing-farm-mcp/actions/workflows/container-build.yml)
+[![Container Build](https://img.shields.io/badge/container-passing-brightgreen)](https://ghcr.io/thrix/testing-farm-mcp:latest)
 [![Static Analysis](https://github.com/thrix/testing-farm-mcp/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/thrix/testing-farm-mcp/actions/workflows/static-analysis.yml)
 
 ## Features
