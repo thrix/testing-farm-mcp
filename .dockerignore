@@ -1,0 +1,7 @@
+# Git
+.git/
+.gitignore
+
+# Python
+__pycache__/
+build/

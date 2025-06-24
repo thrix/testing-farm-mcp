@@ -1,0 +1,65 @@
+[project]
+name = "testing-farm-mcp"
+dynamic = ["version"]
+description = "MCP server for Testing Farm Service"
+authors = [
+    {name = "Miroslav Vadkerti", email = "mvadkert@redhat.com"},
+]
+dependencies = [
+    "fastmcp>=0.5.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-httpx>=0.22.0",
+    "pre-commit>=3.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "codespell>=2.2.0",
+]
+test-client = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+testing-farm-mcp = "testing_farm_mcp.server:main"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-httpx>=0.22.0",
+    "pre-commit>=3.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "codespell>=2.2.0",
+]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+extend-select = ["ALL"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
