@@ -7,7 +7,7 @@ from typing import Annotated, Any
 from fastmcp import FastMCP
 from pydantic import Field
 
-from .client import TestingFarmClient
+from testing_farm_mcp.client import TestingFarmClient
 
 
 class Ranch(StrEnum):
