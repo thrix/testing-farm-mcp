@@ -22,8 +22,18 @@ An MCP (Model Context Protocol) server for interacting with the Testing Farm ser
 podman pull ghcr.io/thrix/testing-farm-mcp:latest
 
 # Run the MCP server
-podman run -i --rm -e TESTING_FARM_API_TOKEN="your-api-token-here"  ghcr.io/thrix/testing-farm-mcp:latest
+podman run -i --rm -e TESTING_FARM_API_TOKEN="your-api-token-here" ghcr.io/thrix/testing-farm-mcp:latest
 ```
+
+This will run the MCP server with [the stdio transport](https://gofastmcp.com/clients/transports#local-transports).
+
+If you wanna run it via HTTP using the sse transport, you can change the default container command:
+```bash
+podman run -i --rm -e TESTING_FARM_API_TOKEN="your-api-token-here" -p 9001:9001 ghcr.io/thrix/testing-farm-mcp:latest \
+  fastmcp run --transport sse --host 0.0.0.0 --port 9001 testing_farm_mcp/server.py
+```
+
+This will run the MCP server on port 9001 inside the container and it will be exposed out of the container.
 
 ### Option 2: Local Development
 
