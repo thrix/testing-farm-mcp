@@ -42,4 +42,4 @@ RUN adduser -D -s /bin/sh appuser && \
 USER appuser
 
 # Default command
-ENTRYPOINT ["testing-farm-mcp"]
+CMD ["testing-farm-mcp"]
