@@ -70,34 +70,26 @@ just start
 Submit a FMF test request to Testing Farm.
 
 **Parameters:**
-- `url` (required): Git repository URL containing FMF metadata
-- `ref` (optional): Branch, tag, or commit to test
-- `merge_sha` (optional): Target commit SHA for merge testing
-- `path` (optional): Path to metadata tree root
-- `plan_name` (optional): Specific test plan to execute
-- `plan_filter` (optional): Filter for tmt plans
-- `test_name` (optional): Specific test to execute
-- `test_filter` (optional): Filter for tmt tests
-- `environments` (optional): Test environment configurations
-- `notification` (optional): Notification settings
-- `settings` (optional): Additional request settings
-- `user` (optional): User information
+- `url` (required): Git repository URL containing the TMT metadata
+- `compose` (required): Compose to run tests against
+- `ref` (optional): Git branch, tag or commit specifying the desired git revision
+- `metadata_root_dir` (optional): Path to the metadata tree root directory. By default git repository root
+- `arch` (optional): Architecture to test against, by default 'x86_64'
+- `plan_name` (optional): Selected plans to be executed. Can be a regular expression
+- `test_name` (optional): Select tests to be executed. Can be a regular expression
+- `context` (optional): TMT context variables as key-value pairs
+- `environment` (optional): TMT environment variables as key-value pairs
 
 **Example:**
 ```json
 {
   "url": "https://github.com/example/test-repo",
+  "compose": "fedora-39",
   "ref": "main",
-  "path": "/tests",
-  "environments": [
-    {
-      "arch": "x86_64",
-      "os": "fedora-38",
-      "variables": {
-        "TEST_VAR": "test_value"
-      }
-    }
-  ]
+  "arch": "x86_64",
+  "environment": {
+    "TEST_VAR": "test_value"
+  }
 }
 ```
 
