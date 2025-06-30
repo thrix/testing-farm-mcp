@@ -4,6 +4,7 @@ import re
 from enum import StrEnum
 from typing import Annotated, Any
 
+import typer
 from fastmcp import FastMCP
 from pydantic import Field
 
@@ -26,7 +27,16 @@ class Architecture(StrEnum):
     s390x = "s390x"
 
 
+class Transport(StrEnum):
+    """Available transport methods."""
+
+    stdio = "stdio"
+    sse = "sse"
+    streamable_http = "streamable-http"
+
+
 mcp = FastMCP("Testing Farm MCP Server")
+app = typer.Typer(help="Testing Farm MCP Server")
 
 
 @mcp.tool()  # type: ignore[misc]
@@ -219,6 +229,25 @@ async def get_request(
         await client.close()
 
 
-def main() -> None:
+@app.command()  # type: ignore[misc]
+def run_server(
+    transport: Annotated[Transport, typer.Option(help="Transport method to use")] = Transport.stdio,
+    host: Annotated[str, typer.Option(help="Host to bind to when using SSE transport")] = "localhost",
+    port: Annotated[int, typer.Option(help="Port to bind to when using SSE transport")] = 8000,
+) -> None:
     """Run the MCP server."""
-    mcp.run()
+    if transport == Transport.sse:
+        mcp.run(transport="sse", host=host, port=port)
+    elif transport == Transport.streamable_http:
+        mcp.run(transport="streamable-http", host=host, port=port)
+    else:
+        mcp.run()
+
+
+def main() -> None:
+    """Entry point for the script."""
+    app()
+
+
+if __name__ == "__main__":
+    main()

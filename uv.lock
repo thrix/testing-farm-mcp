@@ -802,6 +802,7 @@ dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "typer" },
 ]
 
 [package.optional-dependencies]
@@ -843,6 +844,7 @@ requires-dist = [
     { name = "pytest-httpx", marker = "extra == 'dev'", specifier = ">=0.22.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
+    { name = "typer", specifier = ">=0.9.0" },
 ]
 provides-extras = ["dev", "test-client"]
 
