@@ -79,6 +79,7 @@ Submit a FMF test request to Testing Farm.
 - `test_name` (optional): Select tests to be executed. Can be a regular expression
 - `context` (optional): TMT context variables as key-value pairs
 - `environment` (optional): TMT environment variables as key-value pairs
+- `brew_builds` (optional): List of Brew builds to test against. Each item can be a task ID (int) or NVR string (e.g., ['httpd-2.4.54-1.el9', 12345])
 
 **Example:**
 ```json
@@ -89,7 +90,8 @@ Submit a FMF test request to Testing Farm.
   "arch": "x86_64",
   "environment": {
     "TEST_VAR": "test_value"
-  }
+  },
+  "brew_builds": ["httpd-2.4.54-1.el9"]
 }
 ```
 
