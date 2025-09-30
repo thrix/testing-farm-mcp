@@ -97,6 +97,15 @@ async def submit_request(  # noqa: PLR0913
             description="TMT environment variables as key-value pairs (e.g., {'ROOTLESS_USER': 'ec2-user'}).",
         ),
     ] = None,
+    brew_builds: Annotated[
+        list[int | str] | None,
+        Field(
+            description=(
+                "List of Brew builds to test against. Each item can be a task ID (int) or NVR string"
+                " (e.g., ['httpd-2.4.54-1.el9', 12345])."
+            ),
+        ),
+    ] = None,
 ) -> dict[str, Any]:
     """Submit a test request to Testing Farm.
 
@@ -113,6 +122,7 @@ async def submit_request(  # noqa: PLR0913
         arch: Architecture to test against
         context: TMT context variables as key-value pairs
         environment: TMT environment variables as key-value pairs
+        brew_builds: List of Brew builds to test against (task IDs or NVRs)
 
     Returns:
         Testing Farm request creation response
@@ -120,12 +130,31 @@ async def submit_request(  # noqa: PLR0913
     client = TestingFarmClient()
     try:
         # Build environment configuration
-        env_config = {
+        env_config: dict[str, Any] = {
             "arch": arch,
             "os": {
                 "compose": compose,
             },
         }
+
+        # Build artifacts list
+        artifacts = []
+
+        # Add Brew build artifacts if specified
+        if brew_builds:
+            for brew_build in brew_builds:
+                # Convert int task IDs to strings
+                build_id = str(brew_build)
+
+                brew_artifact = {
+                    "type": "redhat-brew-build",
+                    "id": build_id,
+                }
+                artifacts.append(brew_artifact)
+
+        # Add artifacts to environment configuration if any are specified
+        if artifacts:
+            env_config["artifacts"] = artifacts
 
         # Add TMT configuration if context or environment variables are provided
         if context or environment:
